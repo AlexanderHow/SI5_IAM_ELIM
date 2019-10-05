@@ -1,17 +1,10 @@
 # SI5_IAM_ELIM
 
+
 ## Introduction
 
-Ce projet sera réalisé dans le cadre du cours de terminaux mobiles (ELIM) de la majeur IAM. Il consistera à intégrer un terminal mobile dans un contexte embarqué. Ainsi des communications entre composants embarqués et avec des services web seront démontrées.
+Ce projet sera réalisé dans le cadre du cours de terminaux mobiles (ELIM) de la majeur IAM. Il consistera à intégrer un terminal mobile dans un contexte embarqué. Ainsi des communications entre capteurs, composants embarqués et avec des services web seront démontrées.
 
-## Sujet
-
-Nous désirons développer une application mobile et/ou tablette pour les médecins/aides soignants. L'application consistera, grâce au scan d'un QRCode (ou puce NFC ou NRFid, c'est encore à décider), de récupérer le dossier d'un patient grâce à un service web. En complément le service d'agenda de google pourra être utilisé afin d'attacher des évènements au dossier patient ou en général pour le médecin. 
-En parallèle de cela nous souhaitons réaliser une deuxième partie de l'application liée aux systèmes embarqués présents dans l'environnement du patient (électrocardiogramme et autres capteurs/devices connectés que nous pouvons développer aussi). Un cas d'utilisation intéressant serait,  grâce à des communications (BLE en les régissant par le protocole Simple Sensor Interface), que l'application puisse se connecter et communiquer avec ces systèmes embarqués et s'y adapter dynamiquement. Cela dans le but de récupérer leurs mesures correctement et de pouvoir les exploiter de la bonne manière sans forcement fixer l'environnement embarqué de la chambre du patient (qui peut changer).
-Le données du dossier patient, que le médecin peut venir enrichir, ainsi que les données mesurées par les divers systèmes embarqués médicaux consititueront nos jeux de données et feront l'objet de traitements locaux au terminal mobile ainsi que distants via notre service web. En cela nous souhaitons mettre en place un algorithme de clustering grâce à toutes ces données pour aider le médecin à determiner le type de maux dont le patient souffre et ainsi l'orienter vers un type de traitement spécifique. Cela lui simplifiera l'analyse du dossier patient. De plus on pourra aussi catégoriser les dossiers patients selon un niveau de "gravité" ou de stress pour prévoir d'adoucir l'annonce de certaines nouvelles au patient dont la guérisson peut être ralentie en condition de stress. 
-Les communications misent en oeuvre pour augmenter l'intelligence du système sont donc :
-- les communications (et adaptations dynamiques) entre le terminal mobile et les modules embarqués de mesures médicales
-- les communications entre le terminal mobile et un ensemble de services web liés au dossier patient et au traitement du dossier.
 
 ## Membres
 
@@ -19,6 +12,35 @@ Les communications misent en oeuvre pour augmenter l'intelligence du système so
 - Olivia Osgart
 - Alexandre Howard
 
+
+## Sujet
+
+Nous désirons développer une application mobile et/ou tablette pour les médecins/aides-soignants.
+
+L'application consistera dans une première partie en la récupération et la gestion des dossiers patient grâce à notre service web. En complément, le service d'agenda de google pourra être utilisé afin d'attacher des évènements aux dossiers patient (exemple : des rappels de prise de médicaments). Notre service web quant à lui servira au stockage et à la mise à jour des dossiers patient mais aussi à l'application d'un algorithme de Clustering (type k-means ou équivalent avec un nombre de cluster modulable selon la classification) sur ces derniers. Cela permettra de déterminer à l'avance de quel type de pathologie/maladie le patient est atteint. Ainsi nous proposerons sur l'application des orientations/aides quant au traitements ou soins à prodiguer au patient, en plus des informations sur son dossier. Cette classification permettra aussi de définir un niveau de "gravité" concernant l'état du patient. Ce qui permettra d'envisager un ordre de priorité entre les patients pour les rondes du personnel médical mais aussi des mesures pour réduire le stress du patient causé par l'annonce de la gravité de son état.
+
+La seconde partie de l'application concerne la collecte de mesures médicale en usant de différents capteurs.
+En cela nous songeons, dans un premier temps, à utiliser les capteurs du smartphone pour réaliser des mesures sommaires. Ensuite nous envisageons d'étendre l'utilisation de capteurs pour des mesures médicales à un ensemble de systèmes embarqués implémentant notre stack technologique compatible avec notre application. Cette extension restera simple pour le cadre du prototypage de notre application.
+Nous voulons utiliser, sur smartphone, les capteurs tels que l'accéléromètre, le gyroscope et le podomètre (pour réaliser des examens d'efforts ou pour mesurer les réflexes ou la stabilité musculaire d'un patient), le capteur de proximité (pour des tests de vision) ou encore la caméra (pour mesurer le rythme cardiaque). Les hautparleurs pourront aussi servir pour des tests d'audition.
+Quant à l'extension aux capteurs de systèmes embarqués, la stack technologique que nous pourrons mettre en place permettra une adaptation at runtime de l'application à ces systèmes. Cela consistera en l'implémentation du protocole Simple Sensor Interface et de la communication BLE (bluetooth). Cette implémentation permettra à tout système de se décrire à l'application et donc à cette dernière de s'adapter aux capteurs présentés par les systèmes embarqués (que ce soit en termes d'interaction mais aussi en termes d'affichage des données).
+
+Cette seconde partie de l'application sera bien entendu liée à la première. En effet l'utilisateur (médecin ou aide-soignant entre autres) pourra venir enrichir le dossier du patient avec les mesures qu'il aura effectué via l'application. Les données récoltées serviront alors à mieux affiner la classification du dossier en plus de renforcer les informations concernant l'état du patient. 
+ 
+Les communications misent en œuvre pour augmenter l'intelligence du système sont donc :
+- les communications avec l'ensemble des capteurs du terminal mobile
+- les communications (et adaptations dynamiques) entre le terminal mobile et les modules embarqués de mesures médicales
+- les communications entre le terminal mobile et un ensemble de services web liés au dossier patient et au traitement/classification de ce dossier.
+
+
+## WIKI
+
+Merci de se référer à notre wiki pour plus d'informations sur le projet.
+https://github.com/AlexanderHow/SI5_IAM_ELIM/wiki
+
 ## Architecture
 
 ![Architecture](https://github.com/AlexanderHow/SI5_IAM_ELIM/blob/master/docs/arcitecture.jpg)
+
+## Mock ups
+
+![Mock ups]()
