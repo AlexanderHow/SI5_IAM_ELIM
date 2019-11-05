@@ -9,45 +9,53 @@ class CommonToolWrapper extends StatelessWidget{
 
   CommonToolWrapper(this._tool);
 
+  Future<bool> _onWillPop() {
+    this._tool.unsubscribeAllDataBlock();
+    return new Future.value(true);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: //Will be usefull to reorder datablock order, get provider in commontooldatablock, notify in update + reorder
-      ChangeNotifierProvider<ToolModel>.value(
-        notifier: this._tool,
-        child: DefaultTabController(
-          length: 3,
-          child: Scaffold(
-            appBar: AppBar(
-              bottom: TabBar(
-                tabs: <Widget>[
-                  Tab(child: Text("General Infos"),),
-                  Tab(child: Text("Input Parameters"),),
-                  Tab(child: Text("Measures"),),
-                ],
+      WillPopScope(
+        onWillPop: _onWillPop,
+        child: ChangeNotifierProvider<ToolModel>.value(
+          notifier: this._tool,
+          child: DefaultTabController(
+            length: 3,
+            child: Scaffold(
+              appBar: AppBar(
+                bottom: TabBar(
+                  tabs: <Widget>[
+                    Tab(child: Text("General Infos"),),
+                    Tab(child: Text("Input Parameters"),),
+                    Tab(child: Text("Measures"),),
+                  ],
+                ),
+                title: Text(this._tool.name),
               ),
-              title: Text(this._tool.name),
-            ),
-            body: TabBarView(
-                children: <Widget>[
-                  CommonToolDataBlock(),
-                  CommonToolInputs(this._tool.inputsBlock),
-                  CommonToolGeneralInfo(this._tool.name, this._tool.description, this._tool.manual)
-                ]
-            ),
-            //RaisedButton(onPressed: (){print("DEBUG : Added to patient record");}), //TODO : implement that
-            floatingActionButton: FloatingActionButton(
-                onPressed: (){
-                  Random rng = new Random();
-                  List<double> newData = new List<double>();
-                  newData.add(rng.nextDouble()*100);
-                  newData.add(rng.nextDouble()*100);
-                  newData.add(rng.nextDouble()*100);
-                  newData.add(rng.nextDouble()*100);
-                  newData.add(rng.nextDouble()*100);
-                  newData.add(rng.nextDouble()*100);
-                  this._tool.updateDataBlock(1, newData);
-                }
+              body: TabBarView(
+                  children: <Widget>[
+                    CommonToolDataBlock(),
+                    CommonToolInputs(this._tool.inputsBlock),
+                    CommonToolGeneralInfo(this._tool.name, this._tool.description, this._tool.manual)
+                  ]
+              ),
+              //RaisedButton(onPressed: (){print("DEBUG : Added to patient record");}), //TODO : implement that
+              floatingActionButton: FloatingActionButton(
+                  onPressed: (){
+                    Random rng = new Random();
+                    List<double> newData = new List<double>();
+                    newData.add(rng.nextDouble()*100);
+                    newData.add(rng.nextDouble()*100);
+                    newData.add(rng.nextDouble()*100);
+                    newData.add(rng.nextDouble()*100);
+                    newData.add(rng.nextDouble()*100);
+                    newData.add(rng.nextDouble()*100);
+                    this._tool.updateDataBlock(1, newData);
+                  }
+              ),
             ),
           ),
         ),

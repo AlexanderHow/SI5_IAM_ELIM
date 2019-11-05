@@ -64,33 +64,33 @@ class CommonToolGeneralInfo extends StatelessWidget{
               )
           ),
           Card(
-            child: Column(
-              children: <Widget>[
-                ListTile(
-                  leading: Icon(Icons.description),
-                  title: Text("Description : \n"),
-                ),
-                Text(this._descr)
-              ],
-            )
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    leading: Icon(Icons.description),
+                    title: Text("Description : \n"),
+                  ),
+                  Text(this._descr)
+                ],
+              )
           ),
           Card(
-            child: Column(
-              children: <Widget>[
-                ListTile(
-                  leading: Icon(Icons.live_help),
-                  title: Text("Manual : \n"),
-                ),
-                Text(this._manual)
-              ],
-            )
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    leading: Icon(Icons.live_help),
+                    title: Text("Manual : \n"),
+                  ),
+                  Text(this._manual)
+                ],
+              )
           ),
         ],
       ),
     );
   }
 }
-//TODO merge inputs et data + rapide
+
 class CommonToolInputs extends StatelessWidget{
   InputsBlock _inputs;
 
@@ -98,12 +98,10 @@ class CommonToolInputs extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return TextField(
-      decoration: InputDecoration(
-        hintText: "Seuil",
-        border: InputBorder.none,
-      ),
+    return SingleChildScrollView(
+        child: Center(
+            child: (this._inputs.isEmpty) ? Text("No command available") : this._inputs
+        )
     );
   }
 }
@@ -116,13 +114,11 @@ class CommonToolDataBlock extends StatelessWidget{
   Widget build(BuildContext context) {
     ToolModel tm = Provider.of<ToolModel>(context);
     return SingleChildScrollView(
-      child: Center(
-        child: Column(
-          //mainAxisAlignment: MainAxisAlignment.center,
-          //crossAxisAlignment: CrossAxisAlignment.center,
-          children: tm.dataBlocks,
-        ),
-      )
+        child: Center(
+          child: Column(
+            children: tm.dataBlocks,
+          ),
+        )
     );
   }
 

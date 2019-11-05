@@ -2,15 +2,17 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:flutter_app_blx2000/model/Sensors/SensorInterface.dart';
 
 class DataBlock extends StatelessWidget{
   final String _descrData;
   final List<int> _param;
   List<double> _data;
+  SensorInterface _sensorInterface;
   bool _inAlert = false;
 
 
-  DataBlock(this._descrData, this._param){
+  DataBlock(this._descrData, this._param, this._sensorInterface){
     Random rng = new Random();
     _data = new List<double>();
     _data.add(rng.nextDouble()*100);
@@ -20,6 +22,7 @@ class DataBlock extends StatelessWidget{
   }
 
   bool get alert => this._inAlert;
+  List<double> get data => this._data;
 
   void updateData(List<double> newData){
     this._inAlert = false;
@@ -30,6 +33,18 @@ class DataBlock extends StatelessWidget{
       }
     }
     this._data=newData;
+  }
+
+  void updateSensorPos(int pos){
+    if(this._sensorInterface != null){
+      this._sensorInterface.pos = pos;
+    }
+  }
+
+  void unsubscribeSensor(){
+    if(this._sensorInterface != null){
+      this._sensorInterface.unsubscribeToSensor();
+    }
   }
 
   Widget _createChart(){
@@ -80,6 +95,9 @@ class DataBlock extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    if(this._sensorInterface != null && !this._sensorInterface.subscribed){
+      this._sensorInterface.subscribeToSensor();
+    }
     return StreamBuilder<List<double>>(
       stream: Stream.periodic(Duration(seconds: 1)).asyncMap((_)=>this._data),
       builder: (context, snapshot) {
