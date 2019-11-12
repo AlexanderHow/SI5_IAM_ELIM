@@ -1,5 +1,6 @@
 import 'package:flutter_app_blx2000/model/Sensors/Accelerometer.dart';
 import 'package:flutter_app_blx2000/model/Sensors/Gyroscope.dart';
+import 'package:flutter_app_blx2000/model/Sensors/ProximitySensor.dart';
 import 'package:flutter_app_blx2000/model/toolModel.dart';
 
 class ToolMock {
@@ -8,7 +9,7 @@ class ToolMock {
 //TDB : [type, seuil min seuil max]
   ToolMock._internal(){
     this._tools = new List<ToolModel>();
-    this._tools.add(new ToolModel("Électrocardiogramme", "Électrocardiogramme", "C'est pour mesurer le pouls, voila comment. Avant connection, placez les électrodes sur le torse du patient", 2, {}, {"Mesure temps réel" : [1, 80, 20], "Évolution" : [2, 80, 20]}, {"Mesure temps réel" : Accelerometer(), "Évolution" : Gyroscope()}));
+    this._tools.add(new ToolModel("Électrocardiogramme", "Électrocardiogramme", "C'est pour mesurer le pouls, voila comment. Avant connection, placez les électrodes sur le torse du patient", 2, {}, {"Mesure temps réel" : [1, 80, 20], "Évolution" : [2, 80, 20], "Proximité" : [2, 10, -10]}, {"Mesure temps réel" : Accelerometer(), "Évolution" : Gyroscope(), "Proximité" : ProximitySensor()}));
     this._tools.add(new ToolModel("Thermomètre", "Thermomètre", "Pour mesurer la température, voila comment", 1, {"Répétition" : 1, "Celsius" : 2}, {"Température" : [1, 80, 20]}, {}));
     this._tools.add(new ToolModel("Mesures sanguines", "This is tool 3", "How to use tool 3", 2, {"T3In1" : 1}, {"T3DB1" : [1, 80, 20]}, {}));
     this._tools.add(new ToolModel("Tensiomètre", "This is tool 4", "How to use tool 4", 3, {}, {"T4DB1" : [1, 80, 20]}, {}));
