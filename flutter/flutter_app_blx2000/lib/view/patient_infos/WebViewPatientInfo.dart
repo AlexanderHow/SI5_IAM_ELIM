@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_blx2000/view/measures_tools/ListTools.dart';
+import 'package:flutter_app_blx2000/view/patient_infos/PatientInfos.dart';
 
 class WebViewPatientInfo extends StatelessWidget {
   String _idMedic = "";
@@ -31,7 +32,7 @@ class WebViewPatientInfo extends StatelessWidget {
           ],
         ),
         body: Center(
-          child: Column(
+          child: /*Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
 
@@ -40,7 +41,8 @@ class WebViewPatientInfo extends StatelessWidget {
               Text("Here goes the web view of health records"),
               Text("Patient is "+this._idPatient)
             ],
-          ),
+          ),*/
+          PatientInfos()
         ),
       ),
     );
