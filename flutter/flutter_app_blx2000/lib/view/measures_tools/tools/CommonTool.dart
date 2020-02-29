@@ -114,11 +114,25 @@ class CommonToolDataBlock extends StatelessWidget{
   Widget build(BuildContext context) {
     ToolModel tm = Provider.of<ToolModel>(context);
     return SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: tm.dataBlocks,
-          ),
-        )
+      child: Center(
+        child: Column(
+          children: <Widget>[
+            Container(
+              width : MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height/4,
+              child: Image.asset(
+                'assets/'+tm.name+'.PNG',
+                width: MediaQuery.of(context).size.width/2,
+                height: MediaQuery.of(context).size.height/4,
+                alignment: Alignment.center,
+              )
+            ),
+            Column(
+              children: tm.dataBlocks,
+            ),
+          ],
+        ),
+      )
     );
   }
 

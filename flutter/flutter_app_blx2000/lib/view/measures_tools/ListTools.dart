@@ -8,7 +8,7 @@ class ListTools extends StatelessWidget {
   ListTools(){
     this._tools = ToolMock().getTools(1, 3);
   }
-//TODO allerte sur les tile + resumer chart mocké sur les tile = dashboard
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,7 +29,7 @@ class ListTools extends StatelessWidget {
                       Card(
                         child: ListTile(
                           leading: Icon(Icons.build),
-                          title: Text(d.name),
+                          title: Text(d.description),
                           onTap: () => Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => CommonToolWrapper(d)
@@ -42,9 +42,9 @@ class ListTools extends StatelessWidget {
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton(onPressed: (){
+        /*floatingActionButton: FloatingActionButton(onPressed: (){
           this._tools = ToolMock().getTools(2, -1);
-        }),
+        }),*/
       ),
     );
   }

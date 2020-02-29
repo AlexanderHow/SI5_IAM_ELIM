@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_blx2000/model/toolModel.dart';
 import 'package:flutter_app_blx2000/view/measures_tools/tools/CommonTool.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
 import 'dart:math';
 
 class CommonToolWrapper extends StatelessWidget{
@@ -42,19 +44,17 @@ class CommonToolWrapper extends StatelessWidget{
                     CommonToolGeneralInfo(this._tool.name, this._tool.description, this._tool.manual)
                   ]
               ),
-              //RaisedButton(onPressed: (){print("DEBUG : Added to patient record");}), //TODO : implement that
+
               floatingActionButton: FloatingActionButton(
-                  onPressed: (){
-                    Random rng = new Random();
-                    List<double> newData = new List<double>();
-                    newData.add(rng.nextDouble()*100);
-                    newData.add(rng.nextDouble()*100);
-                    newData.add(rng.nextDouble()*100);
-                    newData.add(rng.nextDouble()*100);
-                    newData.add(rng.nextDouble()*100);
-                    newData.add(rng.nextDouble()*100);
-                    this._tool.updateDataBlock(1, newData);
-                  }
+                onPressed: (){
+                  int lvlOfHarm = this._tool.getLevelOfHarm();
+                  print(lvlOfHarm.toString());
+                  String mesure = this._tool.measurementName;
+                  String url = 'http://elimproject.pythonanywhere.com/patients/patient1';
+                  String jsonBody = '{\"' + mesure + '\": ' + lvlOfHarm.toString() + '}';
+                  http.put(url, headers: {"Content-type": "application/json"}, body: jsonBody);
+                },
+                child: Icon(Icons.navigation),
               ),
             ),
           ),

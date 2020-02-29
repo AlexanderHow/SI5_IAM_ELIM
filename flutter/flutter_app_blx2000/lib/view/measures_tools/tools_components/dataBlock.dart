@@ -27,12 +27,30 @@ class DataBlock extends StatelessWidget{
   void updateData(List<double> newData){
     this._inAlert = false;
     for(double d in newData){
-      if(d <= this._param[2] || d >= this._param[1]){
+      if(d < this._param[2] || d > this._param[1]){
         this._inAlert = true;
         break;
       }
     }
     this._data=newData;
+  }
+
+  int getLevelOfHarm(){
+    int res = 0;
+    for(double d in this.data){
+      if(d < this._param[2] || d > this._param[1]){
+        res += 1;
+      }else{
+        res -= 1;
+      }
+    }
+    if(res < 0){
+      res = 0;
+    }
+    if(res > 10){
+      res = 10;
+    }
+    return res;
   }
 
   void updateSensorPos(int pos){

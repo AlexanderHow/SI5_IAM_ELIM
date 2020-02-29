@@ -5,8 +5,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app_blx2000/view/patient_infos/WebViewPatientInfo.dart';
+import 'package:provider/provider.dart';
 
 void main() => runApp(Blx2000());
+
+class RefreshNotifer with ChangeNotifier{
+  void triggerRefresh(){
+    notifyListeners();
+  }
+}
 
 class Blx2000 extends StatelessWidget {
   static const String _title = 'Biological_Logistic_eXtrasmart';
@@ -23,6 +30,8 @@ class Blx2000 extends StatelessWidget {
 class MockedIdentification extends StatelessWidget {
   String _idPatient = "";
   String _idMedic = "";
+  RefreshNotifer _refreshNotifer = RefreshNotifer();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +70,10 @@ class MockedIdentification extends StatelessWidget {
               splashColor: Colors.grey,
               onPressed: () => Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) {
-                  return WebViewPatientInfo(this._idMedic, this._idPatient);
+                  return ChangeNotifierProvider<RefreshNotifer>.value(
+                    notifier: this._refreshNotifer,
+                    child: WebViewPatientInfo(this._idMedic, this._idPatient)
+                  );
                 })
               ),
             ),

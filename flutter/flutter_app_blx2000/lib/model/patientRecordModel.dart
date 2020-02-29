@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_blx2000/model/syndromsModel.dart';
+import 'dart:convert';
+
 class PatientRecordModel {
   final String firstName;
   final String lastName;
-  final Map<String, Map<String, int>> syndroms;
+  final String diagnostic;
+  final SyndromsModel syndroms;
 
-  PatientRecordModel({this.firstName, this.lastName, this.syndroms});
+  PatientRecordModel({this.firstName, this.lastName, this.diagnostic, this.syndroms});
 
-  factory PatientRecordModel.fromJson(Map<String, dynamic> json) {
-    Map<String, Map<String, int>> mapOfSyndroms = new Map<String, Map<String, int>>();
-    //mapOfSyndroms.addAll(json['symptomes']); TODO
+  factory PatientRecordModel.fromJson(Map<String, dynamic> rep) {
     return PatientRecordModel(
-        firstName: json['prenom'],
-        lastName: json['nom'],
-        syndroms: mapOfSyndroms
+        firstName: rep['prenom'],
+        lastName: rep['nom'],
+        diagnostic: rep['cluster'],
+        syndroms: SyndromsModel.fromJson(rep['symptomes'])
     );
   }
 
@@ -32,6 +35,7 @@ class PatientRecordModel {
               children: <Widget>[
                 Text("First name : "+this.firstName),
                 Text("Last name : "+this.lastName),
+                Text("May have : " + this.diagnostic)
               ],
             )
           ),
@@ -39,28 +43,7 @@ class PatientRecordModel {
       )
     ));
 
-    this.syndroms.forEach((zone, descr){
-      List<Widget> tmpDescr = new List<Widget>();
-      descr.forEach((k, level){
-        tmpDescr.add(Text(k + " : " + level.toString()));
-      });
-      res.add(Card(
-          child: Column(
-            children: <Widget>[
-              ListTile(
-                leading: Icon(Icons.assignment_ind),
-                title: Text(zone + "\n"),
-              ),
-              Container(
-                  width : MediaQuery.of(context).size.width,
-                  child: Column(
-                    children: tmpDescr,
-                  )
-              ),
-            ],
-          )
-      ));
-    });
+    res.addAll(this.syndroms.getSyndromsComponents(context));
 
     return res;
   }

@@ -7,12 +7,12 @@ class ToolModel with ChangeNotifier{
   static const MAX_DATA_SIZE = 6;
   InputsBlock _inputs;
   List<DataBlock> _data;
-  int _idIllnessUsedFor;
+  String _idIllnessUsedFor;
   String _name;
   String _descr;
   String _manual;
 
-  ToolModel(String name, String descr, String manual, int idIllnessUsedFor, Map<String, int> descrInputs, Map<String, List<int>> descrData, Map<String, SensorInterface> sensorAttached){
+  ToolModel(String name, String descr, String manual, String idIllnessUsedFor, Map<String, int> descrInputs, Map<String, List<int>> descrData, Map<String, SensorInterface> sensorAttached){
     this._name = name;
     this._descr = descr;
     this._manual = manual;
@@ -56,9 +56,9 @@ class ToolModel with ChangeNotifier{
 
       this._data[pos].updateData(newData);
       if(this._data[pos].alert){
-        DataBlock tmp = this._data[pos];
+        /*DataBlock tmp = this._data[pos];
         this._data.removeAt(pos);
-        this._data.insert(0, tmp);
+        this._data.insert(0, tmp);*/
 
         for(int k = 0; k < this._data.length; ++k){
           this._data[k].updateSensorPos(k);
@@ -73,9 +73,9 @@ class ToolModel with ChangeNotifier{
     if(pos < this._data.length){
       this._data[pos].updateData(newData);
       if(this._data[pos].alert){
-        DataBlock tmp = this._data[pos];
+        /*DataBlock tmp = this._data[pos];
         this._data.removeAt(pos);
-        this._data.insert(0, tmp);
+        this._data.insert(0, tmp);*/
 
         for(int k = 0; k < this._data.length; ++k){
           this._data[k].updateSensorPos(k);
@@ -92,11 +92,20 @@ class ToolModel with ChangeNotifier{
     });
   }
 
+  int getLevelOfHarm(){
+    int res = 0;
+    for(DataBlock db in this.dataBlocks){
+      res += db.getLevelOfHarm();
+    }
+    res = (res / this.dataBlocks.length).ceil();
+    return res;
+  }
+
   InputsBlock get inputsBlock => this._inputs;
   List<DataBlock> get dataBlocks => this._data;
   String get description => this._descr;
   String get manual => this._manual;
   String get name => this._name;
-  int get usefullForIllness => this._idIllnessUsedFor;
+  String get measurementName => this._idIllnessUsedFor;
 
 }
