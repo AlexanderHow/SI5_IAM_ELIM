@@ -1,0 +1,7 @@
+Serveur réalisé par Olivia Osgart (API REST et première version K-Means) et Quentin Moreau (Incrément du machine learning avec le KNN) sur pythonanywhere.
+
+Identifiant : ELIMProject
+Mot de passe : motdepasseELIM
+
+Lien du code : https://www.pythonanywhere.com/user/ELIMProject/files/home/ELIMProject/mysite/flask_app.py?edit
+Lien de test : http://elimproject.pythonanywhere.com/patients/patient1
