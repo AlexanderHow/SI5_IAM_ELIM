@@ -36,7 +36,7 @@ class PatientInfos extends StatelessWidget {
     String url = 'http://elimproject.pythonanywhere.com/patients/patient1';
     final response = await http.get(url, headers: {"Accept": "application/json"});
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       return PatientRecordModel.fromJson(json.decode(response.body));
     } else {
       throw Exception('Failed to load post');
